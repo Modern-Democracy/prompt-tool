@@ -28,5 +28,11 @@
 		"vite": "^4.0.0",
 		"vitest": "^0.25.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"ai": "^2.2.14",
+		"firebase": "^10.4.0",
+		"firebase-admin": "^11.11.0",
+		"langchain": "^0.0.156"
+	}
 }
