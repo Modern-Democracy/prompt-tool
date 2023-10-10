@@ -1,2 +1,13 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div class="container h-full mx-auto flex justify-center items-center">
+    <div class="space-y-10 text-center flex flex-col items-center">
+        <h2 class="h2">Prompt Tool</h2>
+        <!-- / -->
+        <div class="flex justify-center space-x-2">
+            <a href="login" class="btn btn-primary">Login</a>
+            <a href="register" class="btn btn-secondary">Register</a>
+        </div>
+    </div>
+</div>
+
+<style lang="postcss">
+</style>
