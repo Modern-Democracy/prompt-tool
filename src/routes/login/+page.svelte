@@ -1,14 +1,13 @@
 <script>
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-    import {getContext, setContext} from "svelte";
-	import {goto} from "$app/navigation";
+    import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+    import { getContext } from "svelte";
+	import { goto } from "$app/navigation";
 	import logo from '$lib/assets/google_signin_buttons/web/1x/btn_google_signin_dark_normal_web.png';
-	import {auth, googleAuthProvider} from "$lib/firebase";
+	import { auth, googleAuthProvider } from "$lib/firebase";
 
     const userState = getContext('user');
 
     function googleLogin() {
-
         signInWithPopup(auth, googleAuthProvider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
@@ -27,6 +26,7 @@
                 const email = error.customData?.email;
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
+				console.log("CODE:",errorCode, "MESSAGE:",errorMessage,"EMAIL:", email, "CREDENTIAL:",credential);
 				goto('/error');
             });
     }
