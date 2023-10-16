@@ -2,7 +2,13 @@
 <!-- src/routes/+page.svelte -->
 <script>
     import { useChat } from 'ai/svelte';
-    const { input, handleSubmit, messages } = useChat({ api: 'api/memory-chat' });
+    import {getContext} from "svelte";
+
+    const userState = getContext('user');
+    const { input, handleSubmit, messages } = useChat({
+        api: 'api/chat',
+        headers: { 'Authorization': `Bearer ${$userState?.token}` }
+    });
 </script>
 
 <div>
