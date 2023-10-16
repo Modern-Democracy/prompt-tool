@@ -1,6 +1,6 @@
 <script>
     import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-    import { getContext } from "svelte";
+	import { getContext } from "svelte";
 	import { goto } from "$app/navigation";
 	import logo from '$lib/assets/google_signin_buttons/web/1x/btn_google_signin_dark_normal_web.png';
 	import { auth, googleAuthProvider } from "$lib/firebase/firebase-client";
@@ -12,12 +12,13 @@
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-
-                userState.set({
-                    user: result.user,
-                    token: credential?.accessToken
-                });
-				goto('/chat');
+				result.user.getIdToken().then((token) => {
+					userState.set({
+						user: result.user,
+						token
+					});
+					goto('/chat');
+				});
             }).catch((error) => {
                 // Handle Errors here.
                 const errorCode = error.code;
