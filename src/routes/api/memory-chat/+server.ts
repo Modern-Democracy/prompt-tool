@@ -1,5 +1,4 @@
 import type { Config } from '@sveltejs/kit';
-import { StreamingTextResponse, LangChainStream } from 'ai';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import {BufferMemory} from "langchain/memory";
 import {ConversationChain} from "langchain/chains";
@@ -7,6 +6,7 @@ import {FirestoreChatMessageHistory} from "langchain/stores/message/firestore";
 import {FIREBASE_ADMIN_KEY, OPENAI_API_KEY} from "$env/static/private";
 import admin from "firebase-admin"
 import {getFirebaseAdminAuth} from "../../../lib/firebase/firebase-admin";
+import {json} from "@sveltejs/kit";
 export const config: Config = {
     runtime: 'edge'
 };
@@ -28,7 +28,6 @@ export const POST = async ({ request }) => {
     const { sessionId = 'test-session'  } = other;
 
     console.log('SESSION:', sessionId, 'USER:', userId);
-    const { stream, handlers } = LangChainStream();
 
     const memory = new BufferMemory({
         chatHistory: new FirestoreChatMessageHistory({
@@ -45,9 +44,9 @@ export const POST = async ({ request }) => {
     });
     const chain = new ConversationChain({ llm, memory });
 
-    await chain
+    const response = await chain
         .call({ input: messages[messages.length - 1].content })
         .catch(console.error);
 
-    return new StreamingTextResponse(stream);
+    return json(response?.response as string);
 };
