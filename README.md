@@ -1,19 +1,16 @@
-# create-svelte
+# Prompt Tool
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A bare-bones LLM prompt tool meant to explore the [LangChain](https://js.langchain.com/docs/get_started/introduction) Javascript library with a real world example. Initial functionality will loosely cover the ChatGPT Plus UI functionality, but allow historical memory of conversations stored in Firebase (using FirestoreChatMessageHistory). In addition to memory, there will be specific chat types supported using the template language built into LangChain.
 
-## Creating a project
+## Project Stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [SvelteKit](https://kit.svelte.dev/)
+- [LangChain](https://js.langchain.com/docs/get_started/introduction)
+- [Firebase](https://firebase.google.com/)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Configuration
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
+Copy or rename the .env-example file to .env and set all of the variables to the appropriate values. The .env file is ignored by git, so you can safely store your secrets there.
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
