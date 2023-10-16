@@ -12,7 +12,7 @@ export const config: Config = {
 };
 
 async function getUserId(authHeader: string) {
-    const tokenString = authHeader.substring(7);
+    const tokenString = authHeader?.substring(7); //Remove Bearer prefix if set
     const token = await getFirebaseAdminAuth().verifyIdToken(tokenString)
     return (token) ? token.uid : 'test-user';
 }
@@ -24,7 +24,7 @@ async function getUserId(authHeader: string) {
 export const POST = async ({ request }) => {
     const { messages, ...other } = await request.json();
     const authHeader = request.headers.get('authorization');
-    const userId = (authHeader) ? await getUserId(authHeader) : 'test-user'; //Remove Bearer prefix if set, otherwise default to test-user
+    const userId = await getUserId(authHeader);
     const { sessionId = 'test-session'  } = other;
 
     console.log('SESSION:', sessionId, 'USER:', userId);
