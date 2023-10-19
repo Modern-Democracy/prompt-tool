@@ -38,6 +38,9 @@ Create footnotes at the end of the response if necessary for additional clarity,
 
 Keep footnote numbering sequential across all conversation responses. The exception is to reuse values from previous response when asked to make changes.
 
+Current conversation:
+{chat_history}
+
 User: {input}
 AI:`;
 
@@ -75,6 +78,7 @@ export const POST = async ({ request }) => {
 
     const response = await chain
         .call({
+            chat_history: formattedPreviousMessages.join("\n"), // TODO: Adding this causes an issue with the FirestoreChatMessageHistory code complaining about too many parameters.
             input: currentMessageContent,
         })
         .catch(console.error);
