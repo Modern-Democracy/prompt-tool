@@ -33,6 +33,7 @@
 		"ai": "^2.2.14",
 		"firebase": "^10.4.0",
 		"firebase-admin": "^11.11.0",
-		"langchain": "^0.0.164"
+		"langchain": "^0.0.164",
+		"uuid": "^9.0.1"
 	}
 }
