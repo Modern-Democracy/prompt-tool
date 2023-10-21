@@ -54,8 +54,9 @@ export const POST = async ({ request }) => {
     const currentMessageContent = messages[messages.length - 1].content;
 
     const authHeader = request.headers.get('authorization');
+    const sessionHeader = request.headers.get('session');
     const userId = await getUserId(authHeader);
-    const { sessionId = 'test-session'  } = other;
+    const sessionId = (sessionHeader) ? sessionHeader : 'test-session'
 
     console.log('SESSION:', sessionId, 'USER:', userId);
 
