@@ -2,11 +2,11 @@ import type { Config } from '@sveltejs/kit';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import {BufferMemory} from "langchain/memory";
 import {ConversationChain} from "langchain/chains";
-import {FirestoreChatMessageHistory} from "langchain/stores/message/firestore";
 import {FIREBASE_ADMIN_KEY, OPENAI_API_KEY} from "$env/static/private";
 import admin from "firebase-admin"
 import {json} from "@sveltejs/kit";
-import {getUserId} from "../../../lib/util/user-id";
+import {getUserId} from "$lib/util/user-id";
+import {FirestoreChatMessageHistory} from "$lib/firebase/firestore-history";
 export const config: Config = {
     runtime: 'edge'
 };
