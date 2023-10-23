@@ -1,13 +1,11 @@
 import {BaseListChatMessageHistory, BaseMessage, mapStoredMessageToChatMessage} from "langchain/schema";
 import type {StoredMessage} from "langchain/schema";
 import {firestore} from "firebase-admin";
-import type { AppOptions } from "firebase-admin";
-import type { DocumentData, Firestore } from "firebase-admin/lib/firestore";
+import type {AppOptions} from "firebase-admin";
+import type {DocumentData, Firestore} from "firebase-admin/lib/firestore";
 import DocumentReference = firestore.DocumentReference;
-import {getApps} from "firebase-admin/lib/app";
-import {initializeApp} from "firebase/app";
-import {getFirestore} from "firebase/firestore";
 import FieldValue = firestore.FieldValue;
+import {getFirebaseAdminFirestore} from "./firebase-admin";
 
 /**
  * Transforms an array of `StoredMessage` instances into an array of
@@ -92,12 +90,7 @@ export class FirestoreChatMessageHistory extends BaseListChatMessageHistory {
     }
 
     private ensureFirestore(): void {
-        let app;
-        // Check if the app is already initialized else get appIdx
-        if (!getApps().length) app = initializeApp(this.config);
-        else app = getApps()[this.appIdx];
-
-        this.firestoreClient = getFirestore(app);
+        this.firestoreClient = getFirebaseAdminFirestore();
 
         this.document = this.firestoreClient
             .collection(this.collectionName)
@@ -125,8 +118,8 @@ export class FirestoreChatMessageHistory extends BaseListChatMessageHistory {
 
         const response: StoredMessage[] = [];
         querySnapshot.forEach((doc) => {
-            const { type, data } = doc.data();
-            response.push({ type, data });
+            const {type, data} = doc.data();
+            response.push({type, data});
         });
 
         return mapStoredMessagesToChatMessages(response);
@@ -151,7 +144,7 @@ export class FirestoreChatMessageHistory extends BaseListChatMessageHistory {
                 id: this.sessionId,
                 user_id: this.userId,
             },
-            { merge: true }
+            {merge: true}
         );
         await this.document
             .collection("messages")
