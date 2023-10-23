@@ -44,6 +44,7 @@ export interface FirestoreDBChatMessageHistory {
     userId: string;
     appIdx?: number;
     config?: AppOptions;
+    organizeByUser?: boolean;
 }
 
 /**
@@ -63,6 +64,8 @@ export class FirestoreChatMessageHistory extends BaseListChatMessageHistory {
 
     private config: AppOptions;
 
+    private organizeByUser: boolean;
+
     private firestoreClient: Firestore;
 
     private document: DocumentReference<DocumentData> | null;
@@ -72,7 +75,8 @@ export class FirestoreChatMessageHistory extends BaseListChatMessageHistory {
                     sessionId,
                     userId,
                     appIdx = 0,
-                    config,
+                    config = {},
+                    organizeByUser = false,
                 }: FirestoreDBChatMessageHistory) {
         super();
         this.collectionName = collectionName;
@@ -80,7 +84,8 @@ export class FirestoreChatMessageHistory extends BaseListChatMessageHistory {
         this.userId = userId;
         this.document = null;
         this.appIdx = appIdx;
-        if (config) this.config = config;
+        this.config = config;
+        this.organizeByUser = organizeByUser;
 
         try {
             this.ensureFirestore();
@@ -92,9 +97,17 @@ export class FirestoreChatMessageHistory extends BaseListChatMessageHistory {
     private ensureFirestore(): void {
         this.firestoreClient = getFirebaseAdminFirestore();
 
-        this.document = this.firestoreClient
-            .collection(this.collectionName)
-            .doc(this.sessionId);
+        if (this.organizeByUser) {
+            this.document = this.firestoreClient
+                .collection('users')
+                .doc(this.userId)
+                .collection(this.collectionName)
+                .doc(this.sessionId);
+        } else {
+            this.document = this.firestoreClient
+                .collection(this.collectionName)
+                .doc(this.sessionId);
+        }
     }
 
     /**

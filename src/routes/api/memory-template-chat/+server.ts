@@ -2,12 +2,12 @@ import type { Config } from '@sveltejs/kit';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import {BufferMemory} from "langchain/memory";
 import {ConversationChain} from "langchain/chains";
-import {FirestoreChatMessageHistory} from "langchain/stores/message/firestore";
 import {FIREBASE_ADMIN_KEY, OPENAI_API_KEY} from "$env/static/private";
 import admin from "firebase-admin"
-import {getFirebaseAdminAuth} from "../../../lib/firebase/firebase-admin";
 import {json} from "@sveltejs/kit";
 import {PromptTemplate} from "langchain/prompts";
+import {getFirebaseAdminAuth} from "$lib/firebase/firebase-admin";
+import {FirestoreChatMessageHistory} from "$lib/firebase/firestore-history";
 export const config: Config = {
     runtime: 'edge'
 };
@@ -66,6 +66,7 @@ export const POST = async ({ request }) => {
             sessionId,
             userId,
             config: { projectId: "langchain-prompt-tool", credential: admin.credential.cert(JSON.parse(FIREBASE_ADMIN_KEY)) },
+            organizeByUser: true,
         }),
     });
 

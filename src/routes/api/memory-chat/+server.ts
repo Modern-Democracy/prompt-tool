@@ -27,7 +27,11 @@ export const POST = async ({ request }) => {
             collectionName: "chathistory",
             sessionId,
             userId,
-            config: { projectId: "langchain-prompt-tool", credential: admin.credential.cert(JSON.parse(FIREBASE_ADMIN_KEY)) },
+            config: {
+                projectId: "langchain-prompt-tool",
+                credential: admin.credential.cert(JSON.parse(FIREBASE_ADMIN_KEY))
+            },
+            organizeByUser: true,
         }),
     });
 
