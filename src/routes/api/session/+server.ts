@@ -3,6 +3,7 @@ import {getFirebaseAdminFirestore} from "$lib/firebase/firebase-admin";
 import {parseAuthToken} from "$lib/util/parse-auth-token";
 import {generateSlug} from "$lib/util/slug";
 import {getUser} from "$lib/util/user";
+import {getUserToken} from "../../../lib/util/user-token";
 
 export const config: Config = {
     runtime: 'edge'
@@ -16,17 +17,17 @@ export const POST = async ({request}) => {
     const authHeader = request.headers.get('authorization');
     const sessionHeader = request.headers.get('session-id');
     const user = await getUser(authHeader);
-    let session_id;
+    const token = await getUserToken(authHeader);
+    let web_session_id;
     const auth_token = parseAuthToken(authHeader);
 
     if (user) {
         const firestoreDb = getFirebaseAdminFirestore();
         const userDocRef = await firestoreDb.collection("users").doc(user.uid);
         const userDoc = await userDocRef.get();
-        const userChatHistory = await userDocRef.collection('chathistory').doc(sessionHeader).get();
 
-        if (!userChatHistory.exists) {
-            session_id = generateSlug();
+        if (!userDoc.exists) {
+            web_session_id = generateSlug();
             await userDocRef.set({
                 user_name: user?.displayName,
                 user_email: user?.email,
@@ -34,11 +35,13 @@ export const POST = async ({request}) => {
                 user_metadata: user?.metadata,
                 user_provider_data: user?.providerData,
                 user_uid: user?.uid,
-                session_id,
+                web_session_id,
                 auth_token,
+                issued_at: token.iat,
+                expires_at: token.exp,
             }, {merge: true});
         } else {
-            session_id = await userDoc.data()?.session_id;
+            web_session_id = await userDoc.data()?.web_session_id;
         }
 
         return {
@@ -48,7 +51,7 @@ export const POST = async ({request}) => {
             user_metadata: user?.metadata,
             user_provider_data: user?.providerData,
             user_uid: user?.uid,
-            session_id,
+            session_id: web_session_id,
         };
     } else {
         return {
