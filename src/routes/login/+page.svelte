@@ -13,11 +13,22 @@
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
 				result.user.getIdToken().then((token) => {
+					fetch('/api/session', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': `Bearer ${token}`
+						},
+					}).then((res) => {
+						if (res.ok) {
+							console.log(res.json());
+						}
+						goto('/chat');
+					});
 					userState.set({
 						user: result.user,
 						token
 					});
-					goto('/chat');
 				});
             }).catch((error) => {
                 // Handle Errors here.
