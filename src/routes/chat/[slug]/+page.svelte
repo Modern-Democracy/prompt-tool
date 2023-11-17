@@ -2,7 +2,7 @@
 <!-- src/routes/+page.svelte -->
 <script>
     import { useChat } from 'ai/svelte';
-    import {getContext} from "svelte";
+    import {getContext, onMount} from "svelte";
 
     /** @type {import('./$types').PageData} */
     export let data;
@@ -13,15 +13,18 @@
         headers: {
             'Authorization': `Bearer ${$userState?.token}`,
             'Session': data?.slug,
-        }
+        },
+        initialMessages: data?.conversation?.messages,
     });
 </script>
 
 <div>
     <ul>
-        {#each $messages as message}
-            <li>{message.role}: {message.content}</li>
-        {/each}
+        {#if $messages}
+            {#each $messages as message}
+                <li>{message.role}: {message.content}</li>
+            {/each}
+        {/if}
     </ul>
     <form on:submit={handleSubmit}>
         <input bind:value={$input} />
