@@ -5,8 +5,8 @@ import {ConversationChain} from "langchain/chains";
 import {FIREBASE_ADMIN_KEY, OPENAI_API_KEY} from "$env/static/private";
 import admin from "firebase-admin"
 import {json} from "@sveltejs/kit";
-import {getUserId} from "$lib/util/user-id";
 import {FirestoreChatMessageHistory} from "$lib/firebase/firestore-history";
+import {getUser} from "../../../lib/util/user";
 export const config: Config = {
     runtime: 'edge'
 };
@@ -19,14 +19,17 @@ export const POST = async ({ request }) => {
     const { messages, ...other } = await request.json();
     const authHeader = request.headers.get('authorization');
     const sessionHeader = request.headers.get('session');
-    const userId = await getUserId(authHeader);
+    const user = await getUser(authHeader);
     const sessionId = (sessionHeader) ? sessionHeader : 'test-session'
 
+    if (!user) {
+        throw new Error("User not found");
+    }
     const memory = new BufferMemory({
         chatHistory: new FirestoreChatMessageHistory({
             collectionName: "chathistory",
             sessionId,
-            userId,
+            userId: user.uid,
             config: {
                 projectId: "langchain-prompt-tool",
                 credential: admin.credential.cert(JSON.parse(FIREBASE_ADMIN_KEY))
