@@ -1,6 +1,9 @@
 <script lang='ts'>
 	import { setContext } from 'svelte';
 	import { writable} from 'svelte/store';
+    import {goto} from "$app/navigation";
+
+    export let data;
 
 	// Create a store and update it when necessary...
 	const userState = writable();
@@ -24,6 +27,10 @@
 	let displayName = '';
 	let token = null;
 	let isLoggedIn = false;
+
+    function loadConversation(id) {
+        goto(`/chat/${id}`);
+    }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
@@ -99,14 +106,17 @@
             <span class="material-symbols-outlined">person</span>
         </div>
         <ul class="chat-list">
-            <li class="active">
-                <span>Conversation 1</span>
-                <div class="hover-icons">
-                    <span class="material-symbols-outlined">edit</span>
-                    <span class="material-symbols-outlined">delete</span>
-                </div>
-            </li>
-            <li><span>Conversation 2</span></li>
+            {#if data.session?.conversations.length > 0}
+                {#each data.session?.conversations as conversation}
+                <li class="active">
+                    <span>{conversation.title}</span>
+                    <div class="hover-icons">
+                        <span class="material-symbols-outlined" on:click={loadConversation(conversation.id)}>edit</span>
+                        <span class="material-symbols-outlined">delete</span>
+                    </div>
+                </li>
+                {/each}
+            {/if}
         </ul>
         <div class="user-panel">
             <span class="material-symbols-outlined">person</span>
