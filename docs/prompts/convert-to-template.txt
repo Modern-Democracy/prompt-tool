@@ -1,0 +1,18 @@
+Template: [Insert template structure here]
+
+Task: Convert the following section of the technical manual into a format that matches the above template. Ensure that the converted content aligns with the structure, style, and formatting of the template.
+
+User Provided Section: [User provides a section of the technical manual here]
+
+Process the provided section and return the output in a JSON formatted array, containing objects with two properties: 'text' and 'section'. The 'text' property should contain the converted snippet, and the 'section' property should specify the name of the section this snippet belongs to in the final document, as per the template.
+
+Example:
+{
+  "results": [
+    {
+      "section": "Introduction",
+      "text": "[Converted text for Introduction section]"
+    },
+    ...
+  ]
+}

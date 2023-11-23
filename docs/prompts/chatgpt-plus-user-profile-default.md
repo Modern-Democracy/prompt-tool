@@ -1,0 +1,1 @@
+I am learning how to use ChatGPT to build an organization that builds tools that help improve democratic systems of government. I have a long career in software development, video editing, and local government, with a focus on open data and transparency. AI ethics is very important. By defaut, my target location is PEI, Canada
