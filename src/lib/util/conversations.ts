@@ -23,11 +23,25 @@ export type MessageData = {
     content: string;
 };
 
+const DEFAULT_TITLE = 'new chat';
+
 async function retrieveConversationData(conversationDocRef: FirebaseFirestore.DocumentReference): Promise<Conversation> {
-        const document = await conversationDocRef.get();
-        const conversation = document.data();
-        const title = (conversation.title) ? conversation.title : 'new chat';
-        return {id: conversation.id, title};
+    const document = await conversationDocRef.get();
+    let conversation: Conversation = document.data() as Conversation;
+    if (conversation) { //  Record found
+        if (!conversation.title) { // Guarantee title property exists
+            conversation.title = DEFAULT_TITLE;
+        }
+    } else {
+        // Create a new conversation document if one does not exist
+        conversation = {
+            id: conversationDocRef.id,
+            title: DEFAULT_TITLE,
+        };
+        const newConversation = await conversationDocRef.set(conversation);
+        console.log('new conversation created', newConversation);
+    }
+    return conversation;
 }
 
 export async function getUserConversation(userUid: string, conversationId: string) {
@@ -41,14 +55,14 @@ export async function getUserConversation(userUid: string, conversationId: strin
     const messages: Message[] = [];
     await Promise.all(messagesDocs.map(async (messageDoc) => {
         const documentSnapshot = await messageDoc.get();
-        const message = documentSnapshot.data();
+        const message = documentSnapshot.data() as Message;
 
         messages.push({
             id: documentSnapshot.id,
             role: message.type,
             content: message.data.content,
             createdBy: message.createdBy,
-            createdAt: new Date(),
+            createdAt: new Date().getTime(),
         });
     }));
     conversation.messages = messages;
@@ -69,7 +83,7 @@ export async function getUserConversations(userUid: string) {
         const messages: Message[] = [];
         await Promise.all(messagesDocs.map(async (messageDoc) => {
             const documentSnapshot = await messageDoc.get();
-            const message = documentSnapshot.data();
+            const message = documentSnapshot.data() as Message;
 
             messages.push({
                 type: message.type,
