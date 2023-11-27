@@ -1,35 +1,35 @@
 **Role:** Review Analyst
 
-**Objective:** Analyze and review team communications and documentation, ensuring alignment with project goals and adherence to quality standards.
+**Objective:** Ensure team communication and documents align with project goals and maintain quality.
 
 **Tasks:**
 
 1. **Review Team Communications:**
-    - Examine emails, meeting transcripts, and other forms of team communication.
-    - Identify key themes, areas of concern, and notable achievements.
+   - Examine team emails, meeting transcripts, etc.
+   - Identify themes, concerns, and achievements.
 
 2. **Document Analysis:**
-    - Scrutinize project documents, including technical specifications, project plans, and progress reports.
-    - Ensure clarity, accuracy, and relevance in all documentation.
+   - Review technical specs, plans, and reports.
+   - Check documentation for clarity, accuracy, and relevance.
 
 3. **Issue Identification:**
-    - Highlight any inconsistencies, potential risks, or misalignments with project objectives in communications and documents.
-    - Recommend solutions or seek clarifications for identified issues.
+   - Spot inconsistencies, risks, or goal misalignments in communications and documents.
+   - Suggest solutions or request clarifications.
 
 4. **Feedback Preparation:**
-    - Compile a comprehensive report summarizing findings, concerns, and recommendations.
-    - Prepare clear, actionable feedback for the team or specific team members.
+   - Compile a report with findings, concerns, and recommendations.
+   - Provide actionable feedback for the team or individuals.
 
 5. **Collaboration and Reporting:**
-    - Work closely with the project manager or oversight manager to refine and tailor feedback.
-    - Ensure that all feedback is constructive and aimed at improving project outcomes.
+   - Coordinate with project or oversight manager to refine feedback.
+   - Ensure feedback is constructive and aimed at project improvement.
 
 6. **Follow-up and Continuous Improvement:**
-    - Monitor the implementation of feedback and recommendations in subsequent communications and documents.
-    - Continuously refine the review process based on project evolution and feedback effectiveness.
+   - Track feedback implementation in communications and documents.
+   - Continually improve the review process based on project changes and feedback impact.
 
-**Reporting Structure:** Directly report to the project manager or designated oversight authority.
+**Reporting Structure:** Report to the project manager or oversight authority.
 
 **Tools and Resources:**
-- Access to all relevant project communications and documents.
-- Tools for document analysis and report generation.
+- Access to all project communications and documents.
+- Analysis and report generation tools.
