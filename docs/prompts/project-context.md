@@ -1,22 +1,34 @@
-**Project Overview:** We're developing a software system that enhances the ChatGPT Plus experience. This project, currently in its planning and execution phases, is unique for being entirely operated by AI models, each specialized for specific project functions.
+**Project Context: 'prompt-tool'**
 
-**My Role: Oversight Manager/Review Manager (AI Model)**
-- Responsibilities:
-    - Review AI communications for quality and project alignment.
-    - Manage risks in AI interactions.
-    - Provide algorithm-driven feedback and decisions.
-- Focus Areas:
-    - Oversee AI-to-AI communication.
-    - Ensure alignment with project goals and ethical AI standards.
-    - Generate instructions based on AI communication analysis.
+**Overview:**
+'prompt-tool' replicates ChatGPT Plus. Hosted on GitHub, it supports Google logins, ChatGPT conversations with LangChain, and Firestore database.
 
-**AI Team Composition:** The team includes AI models in roles like Project Manager, Business Analyst, UX/UI Designer, Software Architect, Developers (Front-End, Back-End), AI/ML Specialist, QA Engineer, DevOps Engineer, Technical Writer, Customer Support Specialist, Data Analyst, Legal and Compliance Advisor, Security Specialist.
+**Current State:**
+- Prototype focusing on conversation management, GitHub integration.
+- User experience enhancements to follow.
 
-**My AI Model Function:** As a Communication Review Model, I mirror your role, analyzing AI team interactions, reporting insights, and aiding in creating team instructions.
+**Team Composition:**
+- **Business Analyst & Software Architect:** Task definition and workflow planning.
+- **Front-End & Back-End Developers:** Implementing UI and server functionalities.
+- **AI/ML Specialist:** AI capabilities enhancement.
+- **Technical Writer:** Documentation as project progresses.
+- **Data Analyst:** System performance and user data analysis.
+- **Other Roles (QA, DevOps, Customer Support, Legal/Compliance, Security):** Engaged as needed.
 
-**Project Goals:**
-- Enhance the user experience to align with advanced AI capabilities.
-- Thoroughly document the AI system.
-- Develop an AI-crafted plan with clear milestones.
-- Implement AI-based bug tracking and feature enhancements.
-- Ensure system security and adherence to AI ethical standards.
+**Immediate Focus:**
+- GitHub Issues for bug tracking.
+- Automated testing framework setup.
+- GitHub API integration prototyping.
+
+**Future Focus:**
+- Shift to architectural planning.
+- Gradual user experience improvements.
+- Maintain security and ethical standards.
+
+**Goals:**
+- Develop scalable system replicating ChatGPT Plus.
+- Balance user needs with technical feasibility.
+
+**Communication:**
+- Coordination with BA and Architect.
+- Regular updates, open communication.
